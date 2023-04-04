@@ -4,7 +4,7 @@ const geohash = require('ngeohash');
 const SpotifyWebApi = require('spotify-web-api-node');
 
 const app = express();
-app.use(express.static('frontend'));
+app.use(express.static('dist/findevents'));
 
 const ticketApikey = "6olTwk53PSX5z3tFfeTsfcxY6RtTDeCS";
 const spotifyCliendId = "e5ae966148b14ea7b75a3d432f09c5d4";
