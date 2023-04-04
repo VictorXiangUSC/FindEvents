@@ -1,0 +1,30 @@
+.block-search {
+  color: white;
+  margin: 0 auto;
+  border-radius: 20px;
+  background-color:rgba(97, 94, 94, 0.379);
+  opacity: 0.8;
+}
+
+.block-search h1 {
+  padding-top: 2rem;
+  font-size: 3rem;
+  text-align: center;
+}
+
+.block-search hr {
+  margin-left: 2rem;
+  margin-right: 2rem;
+  color: white;
+  border-width: 5px;
+}
+
+.block-search label {
+  color: dodgerblue;
+}
+
+.required-star {
+  color: red;
+  font-size: 1.2em;
+  margin-left: 0.2em;
+}

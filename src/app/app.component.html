@@ -1,0 +1,19 @@
+<div class="container justify-content-center">
+  <div class="row justify-content-end">
+    <div class="col">
+      <ul ngbNav #nav="ngbNav" class="nav nav-pills justify-content-end">
+        <li [ngbNavItem]="1">
+          <a ngbNavLink routerLink="/Search">Search</a>
+        </li>
+        <li [ngbNavItem]="2">
+          <a ngbNavLink routerLink="/Favorites">Favorites</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="row justify-content-center">
+    <div class="col">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>

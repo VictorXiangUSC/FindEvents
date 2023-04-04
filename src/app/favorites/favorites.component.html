@@ -1,0 +1,42 @@
+<!-- Empty -->
+<div *ngIf="favoriteEvents.length == 0">
+  <div
+    class="alert alert-info"
+    style="color: red; background-color: white; text-align: center"
+  >
+    No favorite events to show
+  </div>
+</div>
+<!-- Favorite -->
+<div class="favorites" *ngIf="favoriteEvents.length != 0">
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Date</th>
+        <th>Event</th>
+        <th>Category</th>
+        <th>Venue</th>
+        <th>Favorite</th>
+      </tr>
+    </thead>
+    <tbody *ngFor="let favoriteEvent of favoriteEvents; let i = index">
+      <tr>
+        <td>{{ i + 1 }}</td>
+        <td>{{ favoriteEvent.dates.start.localDate }}</td>
+        <td>
+          {{ favoriteEvent.name }}
+        </td>
+        <td>
+          {{ favoriteEvent.genres }}
+        </td>
+        <td>{{ favoriteEvent._embedded.venues[0].name }}</td>
+        <td>
+          <button type="button" (click)="removeFavorite(i)">
+            <span class="material-icons">delete</span>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

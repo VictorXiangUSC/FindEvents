@@ -1,0 +1,32 @@
+.details {
+  color: white;
+  margin: 0 auto;
+  border-radius: 20px;
+  background-color:rgba(97, 94, 94, 0.379);
+  opacity: 0.8;
+  text-align: center;
+}
+
+.details p{
+  font-size: 1.5rem;
+}
+
+.details a{
+  color: blue;
+  text-decoration: underline;
+}
+
+.details h2{
+  color: dodgerblue;
+  font-size: 2rem;
+}
+
+#carousel-image {
+  height: 900px;
+}
+
+@media (max-width: 768px) {
+  #carousel-image {
+    height: 1500px;
+  }
+}

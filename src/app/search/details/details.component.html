@@ -1,0 +1,313 @@
+<!-- Details Section-->
+<div class="container details" *ngIf="this.searchService.showDetails == true">
+  <div class="row">
+    <div class="col d-flex justify-content-start">
+      <button
+        type="button"
+        class="btn btn-primary"
+        style="background-color: transparent; border: none"
+        (click)="goBack()"
+      >
+        <span class="material-icons">chevron_left</span>
+        <span style="font-size: 2rem">Back</span>
+      </button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col d-flex justify-content-center">
+      <h1>
+        {{ details.name }}
+      </h1>
+      <!-- Favorite button -->
+      <button
+        type="button"
+        class="btn btn-primary"
+        style="background-color: transparent; border: none"
+      >
+        <span
+          class="material-icons"
+          *ngIf="isDetailedEventFavorite == false"
+          (click)="toggleFavorite()"
+          >favorite_border</span
+        >
+        <span
+          class="material-icons"
+          *ngIf="isDetailedEventFavorite == true"
+          style="color: rgb(255, 0, 0)"
+          (click)="toggleFavorite()"
+          >favorite</span
+        >
+      </button>
+    </div>
+  </div>
+
+  <!-- Nav -->
+  <ul
+    ngbNav
+    #nav="ngbNav"
+    [(activeId)]="navChosen"
+    class="nav-tabs justify-content-center"
+    style="background-color: aquamarine"
+  >
+    <li [ngbNavItem]="1">
+      <a ngbNavLink>Events</a>
+    </li>
+    <li [ngbNavItem]="2">
+      <a ngbNavLink>Artist/Teams</a>
+    </li>
+    <li [ngbNavItem]="3">
+      <a ngbNavLink>Venue</a>
+    </li>
+  </ul>
+
+  <!-- Event -->
+  <div
+    id="events-details"
+    class="row justify-content-center"
+    *ngIf="navChosen == 1"
+  >
+    <div class="col-sm-6">
+      <div *ngIf="details.date != ''">
+        <h2>Date</h2>
+        <p>{{ details.date }}</p>
+      </div>
+      <br />
+      <div *ngIf="details.artistTeamStr != ''">
+        <h2>Artist/Team</h2>
+        <p>{{ details.artistTeamStr }}</p>
+      </div>
+      <br />
+      <div *ngIf="details.venue != ''">
+        <h2>Venue</h2>
+        <p>{{ details.venue }}</p>
+      </div>
+      <br />
+      <div *ngIf="details.genres != ''">
+        <h2>Genres</h2>
+        <p>{{ details.genres }}</p>
+      </div>
+      <br />
+      <div *ngIf="details.priceRange != ''">
+        <h2>Price Ranges</h2>
+        <p>{{ details.priceRange }}</p>
+      </div>
+      <br />
+      <div *ngIf="details.ticketStatus != ''">
+        <h2>Ticket Status</h2>
+        <p>
+          <span
+            class="badge"
+            style.backgroundColor="{{ this.details.statusColor }}"
+            >{{ details.ticketStatus }}</span
+          >
+        </p>
+      </div>
+      <br />
+      <div *ngIf="details.buyTicketUrl != ''">
+        <h2>Buy Ticket At</h2>
+        <p>
+          <a href="{{ details.buyTicketUrl }}" target="_blank">Ticketmaster</a>
+        </p>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div *ngIf="details.seatMapUrl != ''">
+        <img
+          style="width: 100%; object-fit: cover"
+          [src]="details.seatMapUrl"
+          alt=""
+        />
+      </div>
+    </div>
+    <br />
+    <!-- Social Media buttons -->
+    <div class="row">
+      <div class="col d-flex justify-content-center">
+        <p>Share on:&nbsp;&nbsp;</p>
+        <a
+          class="facebook-share-button"
+          href="{{ facebookUrl }}"
+          target="_blank"
+        >
+          <img
+            src="../../../assets/images/facebook.svg"
+            style="width: 30px; height: 30px"
+          />
+        </a>
+        <a class="twitter-share-button" href="{{ twitterUrl }}" target="_blank">
+          <img
+            src="../../../assets/images/twitter.svg"
+            style="width: 30px; height: 30px"
+          />
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Artist/Team -->
+  <div *ngIf="navChosen == 2">
+    <div *ngIf="!details.isMusicRelated">
+      <div
+        class="alert alert-info"
+        style="color: red; background-color: white; text-align: center"
+      >
+        No music related artist details to show
+      </div>
+    </div>
+    <ngb-carousel *ngIf="artistsDetails.length > 0">
+      <ng-template ngbSlide *ngFor="let artistDetails of artistsDetails">
+        <div class="picsum-img-wrapper">
+          <img
+            id="carousel-image"
+            [src]="'../../../assets/images/background.jpg'"
+            alt="Random first slide"
+            style="opacity: 0"
+          />
+        </div>
+        <div
+          style="position: absolute; top: 0; left: 0; right: 0"
+          class="carousel-caption"
+        >
+          <div class="row">
+            <div class="col-sm-3">
+              <img
+                style="height: 100px; width: 100px; border-radius: 50%"
+                src="{{ artistDetails.photoUrl }}"
+                alt=""
+              />
+              <h2>{{ artistDetails.name }}</h2>
+            </div>
+            <div class="col-sm-3">
+              <h2>Popularity</h2>
+              <div>
+                <mat-progress-spinner
+                  style="display: inline-block"
+                  color="accent"
+                  mode="determinate"
+                  diameter="50"
+                  strokeWidth="5"
+                  [value]="artistDetails.popularity"
+                >
+                </mat-progress-spinner>
+                <p style="position: relative; top: -40px">
+                  {{ artistDetails.popularity }}
+                </p>
+              </div>
+            </div>
+            <div class="col-sm-3">
+              <h2>Followers</h2>
+              <p>{{ artistDetails.followers }}</p>
+            </div>
+            <div class="col-sm-3">
+              <h2>Spotify Link</h2>
+              <a href="{{ artistDetails.spotifyLink }}" target="_blank">
+                <img
+                  style="height: 30px; width: 30px"
+                  src="../../../assets/images/spotify.svg"
+                />
+              </a>
+            </div>
+          </div>
+          <br />
+          <div class="row">
+            <div class="col d-flex justify-content-start">
+              <h2 style="padding-top: 2rem">
+                Album Featuring
+                {{ artistDetails.name }}
+              </h2>
+            </div>
+          </div>
+          <br />
+          <div class="row">
+            <div
+              class="col-sm-4"
+              *ngFor="let albumUrl of artistDetails.albumUrls"
+            >
+              <img
+                style="max-width: 250px; object-fit: cover"
+                src="{{ albumUrl }}"
+                alt=""
+              />
+            </div>
+          </div>
+        </div>
+      </ng-template>
+    </ngb-carousel>
+  </div>
+
+  <!-- Venue -->
+  <div class="venue-details" *ngIf="navChosen == 3">
+    <div class="row">
+      <div class="col-sm-6">
+        <div *ngIf="venueDetails.address != ''">
+          <h2>address</h2>
+          <p>{{ venueDetails.address }}</p>
+        </div>
+        <br />
+        <div *ngIf="venueDetails.city != ''">
+          <h2>city</h2>
+          <p>{{ venueDetails.city }}</p>
+        </div>
+        <br />
+        <div *ngIf="venueDetails.phoneNumber != ''">
+          <h2>Phone Number</h2>
+          <p>{{ venueDetails.phoneNumber }}</p>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div *ngIf="venueDetails.openHours != ''">
+          <h2>Open Hours</h2>
+          <div>
+            <div
+              *ngIf="!showFullOpenHoursText"
+              [innerHTML]="venueDetails.openHours | slice : 0 : 100"
+            ></div>
+            <div
+              *ngIf="showFullOpenHoursText"
+              [innerHTML]="venueDetails.openHours"
+            ></div>
+            <a (click)="showFullOpenHoursText = !showFullOpenHoursText">
+              {{ showFullOpenHoursText ? "Read Less" : "Read More" }}
+            </a>
+          </div>
+        </div>
+        <br />
+        <div *ngIf="venueDetails.generalRule != ''">
+          <h2>General Rule</h2>
+          <div>
+            <div
+              *ngIf="!showFullGeneralRuleText"
+              [innerHTML]="venueDetails.generalRule | slice : 0 : 100"
+            ></div>
+            <div
+              *ngIf="showFullGeneralRuleText"
+              [innerHTML]="venueDetails.generalRule"
+            ></div>
+            <a (click)="showFullGeneralRuleText = !showFullGeneralRuleText">
+              {{ showFullGeneralRuleText ? "Read Less" : "Read More" }}
+            </a>
+          </div>
+        </div>
+        <br />
+        <div *ngIf="venueDetails.childRule != ''">
+          <h2>Child Rule</h2>
+          <div>
+            <div
+              *ngIf="!showFullChildRuleText"
+              [innerHTML]="venueDetails.childRule | slice : 0 : 100"
+            ></div>
+            <div
+              *ngIf="showFullChildRuleText"
+              [innerHTML]="venueDetails.childRule"
+            ></div>
+            <a (click)="showFullChildRuleText = !showFullChildRuleText">
+              {{ showFullChildRuleText ? "Read Less" : "Read More" }}
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <br />
+    <button (click)="openModal()">Show venue on Google map</button>
+  </div>
+</div>

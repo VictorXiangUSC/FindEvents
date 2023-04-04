@@ -1,0 +1,20 @@
+<div class="modal-header">
+  <h4 class="modal-title" id="modal-basic-title" style="color: black">
+    Event Venue
+  </h4>
+</div>
+<div class="modal-body">
+  <div class="my-google-map">
+    <google-map [options]="mapOptions" width="400px">
+      <map-marker [position]="marker.position"></map-marker>
+    </google-map>
+  </div>
+  <button
+    type="button"
+    class="close btn btn-primary"
+    aria-label="Close"
+    (click)="activeModal.dismiss('Cross click')"
+  >
+    <span aria-hidden="true">Close</span>
+  </button>
+</div>

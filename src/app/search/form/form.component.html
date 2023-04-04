@@ -1,0 +1,113 @@
+<!-- Form Section-->
+<div class="block-search container">
+  <h1>Events Search</h1>
+  <hr />
+
+  <!-- Keyword -->
+  <div class="row">
+    <div class="col">
+      <label>Keyword<span class="required-star">*</span></label>
+      <input
+        type="text"
+        class="form-control"
+        matInput
+        [formControl]="keywordControl"
+        [matAutocomplete]="auto"
+        [(ngModel)]="searchParams.keyword"
+        #keywordTooltip="matTooltip"
+        matTooltip="Please fill keyword field"
+        matTooltipPosition="below"
+        autofocus
+        required
+      />
+
+      <mat-autocomplete #auto="matAutocomplete">
+        <mat-option
+          *ngFor="let keywordOption of keywordOptions"
+          [value]="keywordOption"
+        >
+          {{ keywordOption }}
+        </mat-option>
+      </mat-autocomplete>
+    </div>
+  </div>
+  <br />
+
+  <div class="row">
+    <!-- Distance -->
+    <div class="col-sm-6">
+      <label>Distance</label>
+      <input
+        type="number"
+        class="form-control"
+        [(ngModel)]="searchParams.distance"
+        placeholder="10"
+      />
+    </div>
+
+    <!-- Category -->
+    <div class="col-sm-6" ngbDropdown>
+      <label>Category<span class="required-star">*</span></label>
+      <select
+        name=""
+        class="form-control"
+        data-first-option="true"
+        [(ngModel)]="searchParams.category"
+        #categoryTooltip="matTooltip"
+        matTooltip="Please choose a category"
+        matTooltipPosition="below"
+      >
+        <option value="">Default</option>
+        <option value="Music">Music</option>
+        <option value="Sports">Sports</option>
+        <option value="ArtsTheatre">Arts&Theatre</option>
+        <option value="Films">Film</option>
+        <option value="Miscellaneous">Miscellaneous</option>
+      </select>
+    </div>
+  </div>
+
+  <br />
+
+  <!-- Location -->
+  <div class="row">
+    <div class="col">
+      <label>Location<span class="required-star">*</span></label>
+      <input
+        type="text"
+        class="form-control"
+        [disabled]="searchParams.isHere"
+        [(ngModel)]="searchParams.location"
+        #locationTooltip="matTooltip"
+        matTooltip="Please check or input a location"
+        matTooltipPosition="below"
+      />
+    </div>
+  </div>
+  <br />
+  <div>
+    <input
+      type="checkbox"
+      [(ngModel)]="searchParams.isHere"
+      checked="checked"
+      (change)="onIsHereChange()"
+    />
+    <label>Auto-detect Your Location</label>
+  </div>
+
+  <br />
+
+  <!-- Buttons -->
+  <div class="row">
+    <div class="col d-flex justify-content-end">
+      <button type="button" class="btn btn-danger btn-md" (click)="onSubmit()">
+        SUBMIT
+      </button>
+    </div>
+    <div class="col">
+      <button type="button" class="btn btn-primary btn-md" (click)="onClear()">
+        CLEAR
+      </button>
+    </div>
+  </div>
+</div>
