@@ -4,7 +4,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ## Website Url
 
-https://myfirstproject-377018.wl.r.appspot.com/Search
+https://myfirstproject-377018.wl.r.appspot.com
 
 ## Development server
 
